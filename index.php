@@ -13,8 +13,8 @@
     $pass_signature = true;
      
     // set LINE channel_access_token and channel_secret
-    $channel_access_token = "";
-    $channel_secret = "";
+    $channel_access_token = "uGJiWiCi3MlDMsjy4+QiPTF9v11trC2ZAgiwI1C/bbdij2SFfq1cY3NxsERId9iIXoSTsRDk9BH0ET0tSGgJ19DjGRKgwyyd665DcAOp9zysT8VuVd4oHP6+qxsjG3hganNE3BdpI0Cd/7JtWYwrKwdB04t89/1O/w1cDnyilFU=";
+    $channel_secret = "08c2e1ceb72435fb5f4511865470eb94";
      
     // inisiasi objek bot
     $httpClient = new CurlHTTPClient($channel_access_token);
