@@ -34,7 +34,7 @@
     $app->post('/webhook', function ($request, $response) use ($bot, $pass_signature)
     {
         // get request body and line signature header
-        $body        = file_get_contents('php://input');
+        $body      = file_get_contents('php://input');
         $signature = isset($_SERVER['HTTP_X_LINE_SIGNATURE']) ? $_SERVER['HTTP_X_LINE_SIGNATURE'] : '';
      
         // log body and signature
@@ -63,8 +63,9 @@
                 {
                     if($event['message']['type'] == 'text')
                     {
+                       $result = $bot->replyText($replyToken, 'ini pesan balasan');
                         // send same message as reply to user
-                        $result = $bot->replyText($event['replyToken'], $event['message']['text']);
+                        // $result = $bot->replyText($event['replyToken'], $event['message']['text']);
          
                         // or we can use replyMessage() instead to send reply message
                         // $textMessageBuilder = new TextMessageBuilder($event['message']['text']);
