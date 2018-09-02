@@ -10,7 +10,7 @@
     use \LINE\LINEBot\SignatureValidator as SignatureValidator;
      
     // set false for production
-    $pass_signature = false;
+    $pass_signature = true;
      
     // set LINE channel_access_token and channel_secret
     $channel_access_token = "9bFXCxP6izkRmCobhekk/F3EDAJR+RjPkdix0B6NOVVpF+1By33QKxHMi3n6LmVKXoSTsRDk9BH0ET0tSGgJ19DjGRKgwyyd665DcAOp9zwxqeaBsIhDSmg5/WeKxavZyVVAaxHZjWL3MxF3mwWy1AdB04t89/1O/w1cDnyilFU=";
