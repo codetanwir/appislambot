@@ -13,8 +13,8 @@
     $pass_signature = true;
      
     // set LINE channel_access_token and channel_secret
-    $channel_access_token = "9bFXCxP6izkRmCobhekk/F3EDAJR+RjPkdix0B6NOVVpF+1By33QKxHMi3n6LmVKXoSTsRDk9BH0ET0tSGgJ19DjGRKgwyyd665DcAOp9zwxqeaBsIhDSmg5/WeKxavZyVVAaxHZjWL3MxF3mwWy1AdB04t89/1O/w1cDnyilFU=";
-    $channel_secret = "08c2e1ceb72435fb5f4511865470eb94";
+    $channel_access_token = "ciBDIiZDO1i6c3q/CDo4a8KBiubrvlqFelYUSSNEBbJfEN/mfrwmfSqsjhYRPg8fXoSTsRDk9BH0ET0tSGgJ19DjGRKgwyyd665DcAOp9zwu935bBJKvAKOQbGt9QW5fyeNerZBKHBfUTQVP+k/GtAdB04t89/1O/w1cDnyilFU=";
+    $channel_secret = "8ee5700d543ba7695d0f3ff2934aebef";
      
      
     // inisiasi objek bot
@@ -53,7 +53,6 @@
                 return $response->withStatus(400, 'Invalid signature');
             }
         }
-     
     
         // kode aplikasi nanti disini
         $data = json_decode($body, true);
