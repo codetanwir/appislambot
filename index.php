@@ -83,25 +83,53 @@
                         // $multiMessageBuilder->add($stickerMessageBuilder);
                         
                         
-                         if(
-                            $event['message']['type'] == 'image' or
-                            $event['message']['type'] == 'video' or
-                            $event['message']['type'] == 'audio' or
-                            $event['message']['type'] == 'file'
-                            ){
-                            $basePath  = $request->getUri()->getBaseUrl();
-                            $contentURL  = $basePath."/content/".$event['message']['id'];
-                            $contentType = ucfirst($event['message']['type']);
-                            $result = $bot->replyText($event['replyToken'],
-                            $contentType. " yang Anda kirim bisa diakses dari link:\n " . $contentURL);
+                        //  if(
+                        //     $event['message']['type'] == 'image' or
+                        //     $event['message']['type'] == 'video' or
+                        //     $event['message']['type'] == 'audio' or
+                        //     $event['message']['type'] == 'file'
+                        //     ){
+                        //     $basePath  = $request->getUri()->getBaseUrl();
+                        //     $contentURL  = $basePath."/content/".$event['message']['id'];
+                        //     $contentType = ucfirst($event['message']['type']);
+                        //     $result = $bot->replyText($event['replyToken'],
+                        //     $contentType. " yang Anda kirim bisa diakses dari link:\n " . $contentURL);
                             
                                 
-                               return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus()); 
-                            }
+                        //       return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus()); 
+                        //     }
                       
                         
                         // $result = $bot->replyMessage($event['replyToken'], $multiMessageBuilder);
          
+                       
+                       
+                       
+                       
+                       if(
+                         $event['source']['type'] == 'group' or
+                         $event['source']['type'] == 'room'
+                       ){
+                        if($event['source']['userId']){
+ 
+                            $userId     = $event['source']['userId'];
+                            $getprofile = $bot->getProfile($userId);
+                            $profile    = $getprofile->getJSONDecodedBody();
+                            $greetings  = new TextMessageBuilder("Halo, ".$profile['displayName']);
+                         
+                            $result = $bot->replyMessage($event['replyToken'], $greetings);
+                            return $res->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
+                         
+                        } else {
+                            // send same message as reply to user
+                            $result = $bot->replyText($event['replyToken'], $event['message']['text']);
+                            return $res->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
+                        }    
+                        
+                       } else {
+                        //message from single user
+                       }
+                       
                        
                     }
                 }
