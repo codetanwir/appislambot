@@ -8,6 +8,8 @@
     use \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
     use \LINE\LINEBot\MessageBuilder\StickerMessageBuilder;
     use \LINE\LINEBot\SignatureValidator as SignatureValidator;
+    
+    use \LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
      
     // set false for production
     $pass_signature = true;
@@ -69,8 +71,9 @@
                         // $result = $bot->replyText($event['replyToken'], $event['message']['text']);
          
                         // or we can use replyMessage() instead to send reply message
-                        $textMessageBuilder = new TextMessageBuilder('ini pesan balasan');
-                        $result = $bot->replyMessage($event['replyToken'], $textMessageBuilder);
+                        // $textMessageBuilder = new TextMessageBuilder('Hallo juga');
+                        $imageMessageBuilder = new ImageMessageBuilder('https://avatars2.githubusercontent.com/u/8528725?s=460&v=4', 'url gambar preview');
+                        $result = $bot->replyMessage($event['replyToken'], $imageMessageBuilder);
          
                         return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
                     }
