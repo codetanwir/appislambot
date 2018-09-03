@@ -103,7 +103,7 @@
                         // $result = $bot->replyMessage($event['replyToken'], $multiMessageBuilder);
          
                        
-                    // }
+                    }
                 }
                 
                 
