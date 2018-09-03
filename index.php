@@ -33,7 +33,7 @@
     });
      
     // buat route untuk webhook
-    $app->post('/webhook', function ($request, $response) use ($bot, $pass_signature)
+    $app->post('/webhook', function ($request, $response) use ($bot, $httpClient)
     {
         // get request body and line signature header
         $body      = file_get_contents('php://input');
@@ -42,18 +42,18 @@
         // log body and signature
         file_put_contents('php://stderr', 'Body: '.$body);
      
-        if($pass_signature === false)
-        {
-            // is LINE_SIGNATURE exists in request header?
-            if(empty($signature)){
-                return $response->withStatus(400, 'Signature not set');
-            }
+        // if($pass_signature === false)
+        // {
+        //     // is LINE_SIGNATURE exists in request header?
+        //     if(empty($signature)){
+        //         return $response->withStatus(400, 'Signature not set');
+        //     }
      
-            // is this request comes from LINE?
-            if(! SignatureValidator::validateSignature($body, $channel_secret, $signature)){
-                return $response->withStatus(400, 'Invalid signature');
-            }
-        }
+        //     // is this request comes from LINE?
+        //     if(! SignatureValidator::validateSignature($body, $channel_secret, $signature)){
+        //         return $response->withStatus(400, 'Invalid signature');
+        //     }
+        // }
     
         // kode aplikasi nanti disini
         $data = json_decode($body, true);
@@ -120,7 +120,7 @@
                         } elseif (strtolower($event['message']['text']) == 'flex') {
  
                             $flexTemplate = file_get_contents("flex_message.json"); // template flex message
-                            $result = $pass_signature->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+                            $result = $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
                                 'replyToken' => $event['replyToken'],
                                 'messages'   => [
                                     [
