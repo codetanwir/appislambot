@@ -120,7 +120,7 @@
                         } elseif (strtolower($event['message']['text']) == 'flex') {
  
                             $flexTemplate = file_get_contents("flex_message.json"); // template flex message
-                            $result = $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+                            $result = $pass_signature->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
                                 'replyToken' => $event['replyToken'],
                                 'messages'   => [
                                     [
