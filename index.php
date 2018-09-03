@@ -97,7 +97,7 @@
                             $contentType. " yang Anda kirim bisa diakses dari link:\n " . $contentURL);
                          
                         
-                        $result = $bot->replyMessage($event['replyToken'], $multiMessageBuilder);
+                        // $result = $bot->replyMessage($event['replyToken'], $multiMessageBuilder);
          
                         return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
                     }
