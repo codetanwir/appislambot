@@ -63,8 +63,8 @@
             {
                 if ($event['type'] == 'message')
                 {
-                    if($event['message']['type'] == 'text')
-                    {
+                    // if($event['message']['type'] == 'text')
+                    // {
                         // $result = $bot->replyText($event['replyToken'], 'ini pesan balasan');
                         
                         // send same message as reply to user
@@ -84,24 +84,27 @@
                         // $multiMessageBuilder->add($stickerMessageBuilder);
                         
                         
-                        if(
+                       
+                         
+                        
+                        // $result = $bot->replyMessage($event['replyToken'], $multiMessageBuilder);
+         
+                //         return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
+                //     }
+                // }
+                
+                
+                 if(
                             $event['message']['type'] == 'image' or
                             $event['message']['type'] == 'video' or
                             $event['message']['type'] == 'audio' or
                             $event['message']['type'] == 'file'
-                        ){
+                ){
                             $basePath  = $request->getUri()->getBaseUrl();
                             $contentURL  = $basePath."/content/".$event['message']['id'];
                             $contentType = ucfirst($event['message']['type']);
                             $result = $bot->replyText($event['replyToken'],
                             $contentType. " yang Anda kirim bisa diakses dari link:\n " . $contentURL);
-                         
-                        
-                        // $result = $bot->replyMessage($event['replyToken'], $multiMessageBuilder);
-         
-                        return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
-                    }
-                }
             }
         }
      
