@@ -9,7 +9,6 @@
     use \LINE\LINEBot\MessageBuilder\StickerMessageBuilder;
     use \LINE\LINEBot\SignatureValidator as SignatureValidator;
     
-    use \LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
      
     // set false for production
     $pass_signature = true;
@@ -63,8 +62,8 @@
             {
                 if ($event['type'] == 'message')
                 {
-                    // if($event['message']['type'] == 'text')
-                    // {
+                    if($event['message']['type'] == 'text')
+                    {
                         // $result = $bot->replyText($event['replyToken'], 'ini pesan balasan');
                         
                         // send same message as reply to user
@@ -104,7 +103,7 @@
                         // $result = $bot->replyMessage($event['replyToken'], $multiMessageBuilder);
          
                        
-                    // }
+                    }
                 }
                 
                 
