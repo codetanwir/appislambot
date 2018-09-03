@@ -74,14 +74,28 @@
                         // $textMessageBuilder = new TextMessageBuilder('Hallo juga');
                         // $imageMessageBuilder = new ImageMessageBuilder('https://avatars2.githubusercontent.com/u/8528725?s=460&v=4', 'url gambar preview');
                         
-                        $textMessageBuilder1 = new TextMessageBuilder('ini pesan balasan pertama');
-                        $textMessageBuilder2 = new TextMessageBuilder('ini pesan balasan kedua');
-                        $stickerMessageBuilder = new StickerMessageBuilder(1, 106);
+                        // $textMessageBuilder1 = new TextMessageBuilder('ini pesan balasan pertama');
+                        // $textMessageBuilder2 = new TextMessageBuilder('ini pesan balasan kedua');
+                        // $stickerMessageBuilder = new StickerMessageBuilder(1, 106);
                          
-                        $multiMessageBuilder = new MultiMessageBuilder();
-                        $multiMessageBuilder->add($textMessageBuilder1);
-                        $multiMessageBuilder->add($textMessageBuilder2);
-                        $multiMessageBuilder->add($stickerMessageBuilder);
+                        // $multiMessageBuilder = new MultiMessageBuilder();
+                        // $multiMessageBuilder->add($textMessageBuilder1);
+                        // $multiMessageBuilder->add($textMessageBuilder2);
+                        // $multiMessageBuilder->add($stickerMessageBuilder);
+                        
+                        
+                        if(
+                            $event['message']['type'] == 'image' or
+                            $event['message']['type'] == 'video' or
+                            $event['message']['type'] == 'audio' or
+                            $event['message']['type'] == 'file'
+                        ){
+                            $basePath  = $request->getUri()->getBaseUrl();
+                            $contentURL  = $basePath."/content/".$event['message']['id'];
+                            $contentType = ucfirst($event['message']['type']);
+                            $result = $bot->replyText($event['replyToken'],
+                            $contentType. " yang Anda kirim bisa diakses dari link:\n " . $contentURL);
+                         
                         
                         $result = $bot->replyMessage($event['replyToken'], $multiMessageBuilder);
          
@@ -96,13 +110,25 @@
     
     $app->get('/pushmessage', function($req, $res) use ($bot)
     {
-    // send push message to user
-    $userId = 'U3bf29c14b2605b75c39e0728375756b9';
-    $textMessageBuilder = new TextMessageBuilder('Halo, ini pesan push');
-    $result = $bot->pushMessage($userId, $textMessageBuilder);
-   
-    return $res->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
+        // send push message to user
+        $userId = 'U3bf29c14b2605b75c39e0728375756b9';
+        $textMessageBuilder = new TextMessageBuilder('Halo, ini pesan push');
+        $result = $bot->pushMessage($userId, $textMessageBuilder);
+       
+        return $res->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
+    });
     
+    $app->get('/content/{messageId}', function($req, $res) use ($bot)
+    {
+        // get message content
+        $route      = $req->getAttribute('route');
+        $messageId = $route->getArgument('messageId');
+        $result = $bot->getMessageContent($messageId);
+     
+        // set response
+        $res->write($result->getRawBody());
+     
+        return $res->withHeader('Content-Type', $result->getHeader('Content-Type'));
     });
      
 $app->run();
