@@ -95,12 +95,15 @@
                             $contentType = ucfirst($event['message']['type']);
                             $result = $bot->replyText($event['replyToken'],
                             $contentType. " yang Anda kirim bisa diakses dari link:\n " . $contentURL);
+                            
+                                
+                               return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus()); 
                             }
                       
                         
                         // $result = $bot->replyMessage($event['replyToken'], $multiMessageBuilder);
          
-                        return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
+                       
                     // }
                 }
                 
