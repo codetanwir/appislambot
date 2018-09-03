@@ -63,8 +63,8 @@
             {
                 if ($event['type'] == 'message')
                 {
-                    if($event['message']['type'] == 'text')
-                    {
+                    // if($event['message']['type'] == 'text')
+                    // {
                         // $result = $bot->replyText($event['replyToken'], 'ini pesan balasan');
                         
                         // send same message as reply to user
@@ -101,7 +101,7 @@
                         // $result = $bot->replyMessage($event['replyToken'], $multiMessageBuilder);
          
                         return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
-                    }
+                    // }
                 }
                 
                 
