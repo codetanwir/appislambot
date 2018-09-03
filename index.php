@@ -106,36 +106,49 @@
                        
                        
                        
-                       if(
-                         $event['source']['type'] == 'group' or
-                         $event['source']['type'] == 'room'
-                       ){
-                        if($event['source']['userId']){
+                if ($event['source']['type'] == 'group' or
+                    $event['source']['type'] == 'room'
+                ) {
  
-                            $userId     = $event['source']['userId'];
-                            $getprofile = $bot->getProfile($userId);
-                            $profile    = $getprofile->getJSONDecodedBody();
-                            $greetings  = new TextMessageBuilder("Halo, ".$profile['displayName']);
-                         
-                            $result = $bot->replyMessage($event['replyToken'], $greetings);
-                            return $res->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
-                         
+                // message from user
+                } else {
+                    if ($event['message']['type'] == 'text') {
+                        if (strtolower($event['message']['text']) == 'user id') {
+ 
+                            $result = $bot->replyText($event['replyToken'], $event['source']['userId']);
+ 
+                        } elseif (strtolower($event['message']['text']) == 'flex message') {
+ 
+                            $flexTemplate = file_get_contents("flex_message.json"); // template flex message
+                            $result = $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+                                'replyToken' => $event['replyToken'],
+                                'messages'   => [
+                                    [
+                                        'type'     => 'flex',
+                                        'altText'  => 'Test Flex Message',
+                                        'contents' => json_decode($flexTemplate)
+                                    ]
+                                ],
+                            ]);
+ 
                         } else {
                             // send same message as reply to user
                             $result = $bot->replyText($event['replyToken'], $event['message']['text']);
-                            return $res->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
-                        }    
-                        
-                       } else {
-                        //message from single user
-                       }
+                        }
+ 
+                        return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
+                    }
                        
+                }  
+                       
+                       
+                       
+                       
+                       
+                     
                        
                     }
                 }
-                
-                
-                
         }
      
     });
