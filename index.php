@@ -71,9 +71,19 @@
                         // $result = $bot->replyText($event['replyToken'], $event['message']['text']);
          
                         // or we can use replyMessage() instead to send reply message
-                        $textMessageBuilder = new TextMessageBuilder('Hallo juga');
+                        // $textMessageBuilder = new TextMessageBuilder('Hallo juga');
                         // $imageMessageBuilder = new ImageMessageBuilder('https://avatars2.githubusercontent.com/u/8528725?s=460&v=4', 'url gambar preview');
-                        $result = $bot->replyMessage($event['replyToken'], $textMessageBuilder);
+                        
+                        $textMessageBuilder1 = new TextMessageBuilder('ini pesan balasan pertama');
+                        $textMessageBuilder2 = new TextMessageBuilder('ini pesan balasan kedua');
+                        $stickerMessageBuilder = new StickerMessageBuilder(1, 106);
+                         
+                        $multiMessageBuilder = new MultiMessageBuilder();
+                        $multiMessageBuilder->add($textMessageBuilder1);
+                        $multiMessageBuilder->add($textMessageBuilder2);
+                        $multiMessageBuilder->add($stickerMessageBuilder);
+                        
+                        $result = $bot->replyMessage($event['replyToken'], $multiMessageBuilder);
          
                         return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
                     }
